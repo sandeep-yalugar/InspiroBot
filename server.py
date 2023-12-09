@@ -6,6 +6,7 @@ import numpy as np
 from torch.nn.functional import cosine_similarity
 import openai
 from experiments.core.models.huggingface.novelT5 import T5Novel
+from dotenv import load_dotenv
 
 from transformers import T5Tokenizer, T5ForConditionalGeneration
 from sentence_transformers import SentenceTransformer
@@ -15,6 +16,7 @@ state_dict = torch.load('./yourcheckpoint/model_checkpoint_new16',map_location='
 model.load_state_dict(state_dict)
 model.lm_model.config.dropout_rate = 0
 model.to('cpu')
+load_dotenv()
 
 tokenizer = T5Tokenizer.from_pretrained('t5-base')
 app = Flask(__name__)
@@ -30,7 +32,7 @@ def generate(stack):
     result = stack[::-1]
     return result
 def gen_story(prob):
-        api_key = "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"
+        api_key = os.getenv('CHATGPT_API_KEY') # put your chatgpt api key in .env file
         openai.api_key = api_key
 
         # Set the prompt to the provided string

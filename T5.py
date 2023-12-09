@@ -1,4 +1,5 @@
 import torch
+from dotenv import load_dotenv
 import os
 import numpy as np
 from torch.nn.functional import cosine_similarity
@@ -8,8 +9,9 @@ from experiments.core.models.huggingface.novelT5 import T5Novel
 from transformers import T5Tokenizer, T5ForConditionalGeneration
 from sentence_transformers import SentenceTransformer
 import sys
+load_dotenv()
 
-openai.api_key = os.environ.get('CHATGPT_API_KEY') #enter your chatGPT api key in envirornment variables
+
 
 
 
@@ -17,7 +19,7 @@ def main():
     DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
     print(DEVICE)
     def gen_story(prob):
-        api_key = os.environ.get('CHATGPT_API_KEY')
+        api_key = os.getenv('CHATGPT_API_KEY') #enter your chatGPT api key in envirornment variables
         openai.api_key = api_key
 
         # Set the prompt to the provided string
