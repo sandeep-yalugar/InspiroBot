@@ -9,7 +9,7 @@ from transformers import T5Tokenizer, T5ForConditionalGeneration
 from sentence_transformers import SentenceTransformer
 import sys
 
-openai.api_key = "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"
+openai.api_key = os.environ.get('CHATGPT_API_KEY') #enter your chatGPT api key in envirornment variables
 
 
 
@@ -17,7 +17,7 @@ def main():
     DEVICE = 'cuda' if torch.cuda.is_available() else 'cpu'
     print(DEVICE)
     def gen_story(prob):
-        api_key = "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"
+        api_key = os.environ.get('CHATGPT_API_KEY')
         openai.api_key = api_key
 
         # Set the prompt to the provided string
